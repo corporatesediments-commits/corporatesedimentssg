@@ -1,1 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#fff9ec" />
+  <meta name="description" content="A little practical, a little sentimental. Singapore BTO, HFE, home finances, weddings, renovation, matcha and journal notes." />
+  <title>Corporate Sediments — a life in progress</title>
+  <style>
+    :root {
+      --cream: #fff9ec;
+      --paper: #fffdf7;
+      --ink: #343b2e;
+      --muted: #727568;
+      --green: #b9d8a9;
+      --green-dark: #466044;
+      --yellow: #f8e9a8;
+      --pink: #ffb7c5;
+      --peach: #ffc99e;
+      --lilac: #dcd0f2;
+      --line: #e8e1d2;
+      --shadow: 0 12px 35px rgba(76, 72, 49, .08);
+      --radius: 24px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 90px; }
+    body { margin: 0; color: var(--ink); background: var(--cream); font-family: ui-rounded, "Avenir Next", Avenir, "Segoe UI", sans-serif; line-height: 1.6; }
+    button, input, select { font: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    a { color: inherit; }
+    .site-header { position: sticky; top: 0; z-index: 20; background: rgba(255,249,236,.92); backdrop-filter: blur(14px); border-bottom: 1px solid rgba(232,225,210,.8); }
+    .nav-wrap { max-width: 1180px; margin: auto; padding: 13px 22px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .brand { text-decoration: none; display: inline-flex; flex-direction: column; line-height: 1.08; }
+    .brand-name { font-family: Georgia, serif; font-size: 1.3rem; letter-spacing: -.045em; font-weight: bold; }
+    .brand-sub { font-size: .66rem; letter-spacing: .15em; text-transform: uppercase; color: var(--muted); margin-top: 5px; }
+    .nav-links { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
+    .nav-links a { text-decoration: none; padding: 8px 11px; border-radius: 999px; font-size: .84rem; color: #4e5547; transition: background .2s; }
+    .nav-links a:hover, .nav-links a.active { background: var(--yellow); }
+    .menu-toggle { display: none; border: 0; background: var(--green); padding: 10px 13px; border-radius: 14px; cursor: pointer; }
+    main { overflow: hidden; }
+    .container { width: min(1120px, calc(100% - 40px)); margin-inline: auto; }
+    .hero { padding: 65px 0 50px; }
+    .hero-grid { display: grid; grid-template-columns: 1.08fr .92fr; gap: 38px; align-items: center; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--line); background: var(--paper); padding: 7px 12px; border-radius: 999px; font-size: .76rem; text-transform: uppercase; letter-spacing: .12em; color: var(--green-dark); font-weight: 750; }
+    h1, h2, h3, p { margin-top: 0; }
+    h1 { font-family: Georgia, "Times New Roman", serif; font-weight: 500; letter-spacing: -.065em; font-size: clamp(3.1rem, 6.3vw, 5.9rem); line-height: .98; margin: 22px 0; max-width: 700px; }
+    h1 em { color: var(--green-dark); font-weight: 500; }
+    .hero-copy { max-width: 570px; font-size: 1.08rem; color: #666a5d; }
+    .hero-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 26px; }
+    .btn { display: inline-flex; align-items: center; justify-content: center; gap: 8px; border: 0; border-radius: 999px; padding: 12px 18px; text-decoration: none; font-weight: 750; font-size: .9rem; cursor: pointer; transition: transform .18s, box-shadow .18s; }
+    .btn:hover { transform: translateY(-2px); box-shadow: 0 8px 18px rgba(50,60,42,.12); }
+    .btn-green { background: var(--green-dark); color: white; }
+    .btn-yellow { background: var(--yellow); color: var(--ink); }
+    .btn-pink { background: var(--pink); color: #593e43; }
+    .hero-art { min-height: 395px; position: relative; display: grid; place-items: center; }
+    .art-paper { width: min(100%, 430px); aspect-ratio: 1 / .91; position: relative; border-radius: 46% 54% 48% 52% / 53% 42% 58% 47%; background: var(--yellow); transform: rotate(2deg); display: grid; place-items: center; }
+    .art-paper::before { content: ""; position: absolute; width: 76%; height: 76%; border-radius: 50%; background: var(--green); transform: translate(12px, 9px) rotate(-7deg); }
+    .art-card { position: relative; z-index: 1; width: 62%; padding: 25px 22px; background: var(--paper); border: 1px solid #e7ddc8; border-radius: 17px; box-shadow: var(--shadow); transform: rotate(-5deg); text-align: center; }
+    .art-card .cup { font-size: 4.7rem; line-height: 1.2; }
+    .art-card strong { display: block; font-family: Georgia, serif; font-size: 1.35rem; line-height: 1.1; margin: 7px 0; }
+    .art-card small { color: var(--muted); }
+    .sticker { position: absolute; z-index: 2; display: grid; place-items: center; width: 65px; height: 65px; border-radius: 50%; box-shadow: var(--shadow); font-size: 1.65rem; }
+    .sticker.one { top: 16px; right: 11%; background: var(--pink); transform: rotate(12deg); }
+    .sticker.two { bottom: 26px; left: 5%; background: var(--peach); transform: rotate(-10deg); }
+    .sticker.three { right: 1%; bottom: 60px; background: var(--lilac); transform: rotate(8deg); }
+    .ticker { border-block: 1px solid var(--line); background: #fff3cb; overflow: hidden; white-space: nowrap; }
+    .ticker-track { display: inline-flex; gap: 25px; padding: 11px 0; min-width: max-content; animation: drift 35s linear infinite; font-size: .8rem; letter-spacing: .07em; text-transform: uppercase; color: #5e654e; }
+    @keyframes drift { to { transform: translateX(-35%); } }
+    section { padding: 70px 0; }
+    .section-head { display: flex; justify-content: space-between; align-items: end; gap: 24px; margin-bottom: 27px; }
+    .kicker { text-transform: uppercase; letter-spacing: .14em; font-weight: 800; color: var(--green-dark); font-size: .73rem; margin-bottom: 9px; }
+    h2 { font-family: Georgia, serif; font-weight: 500; letter-spacing: -.045em; font-size: clamp(2.15rem, 4vw, 3.4rem); line-height: 1.05; margin-bottom: 0; }
+    .section-intro { max-width: 430px; color: var(--muted); margin-bottom: 3px; }
+    .category-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 13px; }
+    .category-card { min-height: 195px; border-radius: var(--radius); padding: 20px 17px; display: flex; flex-direction: column; justify-content: space-between; text-decoration: none; border: 1px solid rgba(70,70,50,.06); transition: transform .2s; }
+    .category-card:hover { transform: translateY(-5px) rotate(-.5deg); }
+    .category-card .emoji { font-size: 2rem; }
+    .category-card h3 { font-family: Georgia, serif; font-size: 1.25rem; line-height: 1.05; margin: 15px 0 7px; }
+    .category-card p { font-size: .8rem; line-height: 1.4; color: #5f6257; margin: 0; }
+    .category-card .arrow { align-self: end; font-size: 1.1rem; }
+    .cat-bto { background: #dcebd1; } .cat-wedding { background: #ffd9df; } .cat-home { background: #ffdbbb; } .cat-matcha { background: #e4e8b7; } .cat-journal { background: #e3d9f7; }
+    .tools-section { background: #f3eddf; }
+    .tools-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    .tool-card { background: var(--paper); border: 1px solid var(--line); border-radius: var(--radius); padding: 25px; box-shadow: 0 5px 18px rgba(76,72,49,.035); }
+    .tool-title { display: flex; align-items: start; justify-content: space-between; gap: 12px; margin-bottom: 20px; }
+    .tool-title h3 { font-family: Georgia, serif; font-size: 1.6rem; font-weight: 500; margin-bottom: 5px; }
+    .tool-title p { color: var(--muted); font-size: .88rem; margin-bottom: 0; }
+    .tool-icon { display: grid; place-items: center; min-width: 46px; height: 46px; border-radius: 15px; background: var(--yellow); font-size: 1.45rem; }
+    .field-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+    .field { display: flex; flex-direction: column; gap: 6px; }
+    .field label { font-size: .8rem; font-weight: 750; color: #53594b; }
+    .field input, .field select { min-width: 0; width: 100%; border: 1px solid #ded8c8; background: #fffefb; padding: 11px 12px; border-radius: 12px; color: var(--ink); outline: none; }
+    .field input:focus, .field select:focus, .search-box input:focus { border-color: var(--green-dark); box-shadow: 0 0 0 3px rgba(185,216,169,.4); }
+    .tool-result { margin-top: 18px; background: #e6efd9; border-radius: 17px; padding: 17px; display: flex; align-items: center; justify-content: space-between; gap: 15px; }
+    .tool-result span { display: block; font-size: .78rem; color: #53634c; }
+    .tool-result strong { font-size: clamp(1.3rem, 3vw, 1.8rem); letter-spacing: -.04em; }
+    .tool-note { font-size: .75rem; color: var(--muted); margin: 12px 0 0; }
+    .budget-list { display: grid; gap: 10px; }
+    .budget-row { display: grid; grid-template-columns: 1fr 115px; align-items: center; gap: 12px; font-size: .88rem; }
+    .budget-row input { width: 100%; border: 1px solid #ded8c8; background: #fffefb; padding: 9px 10px; border-radius: 10px; }
+    .budget-total { margin-top: 16px; padding-top: 14px; border-top: 1px dashed var(--line); display: flex; justify-content: space-between; align-items: center; font-weight: 800; }
+    .content-section { background: var(--cream); }
+    .search-row { display: flex; gap: 12px; align-items: center; margin-bottom: 20px; flex-wrap: wrap; }
+    .search-box { position: relative; flex: 1; min-width: 220px; }
+    .search-box span { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); }
+    .search-box input { width: 100%; border: 1px solid var(--line); border-radius: 999px; padding: 12px 15px 12px 42px; background: var(--paper); outline: none; }
+    .filter-pills { display: flex; gap: 7px; flex-wrap: wrap; }
+    .filter-pill { border: 1px solid var(--line); background: var(--paper); border-radius: 999px; padding: 9px 13px; font-size: .8rem; cursor: pointer; }
+    .filter-pill.active { background: var(--green-dark); color: white; border-color: var(--green-dark); }
+    .article-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 17px; }
+    .article-card { background: var(--paper); border: 1px solid var(--line); border-radius: 20px; padding: 21px; display: flex; flex-direction: column; min-height: 255px; transition: transform .2s, box-shadow .2s; }
+    .article-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+    .article-top { display: flex; justify-content: space-between; gap: 8px; align-items: center; }
+    .tag { display: inline-flex; padding: 5px 9px; border-radius: 999px; font-size: .7rem; font-weight: 800; background: #e4ebd9; color: #506347; }
+    .tag.wedding { background: #ffe0e5; color: #80515d; } .tag.home { background: #ffe1c9; color: #825b3f; } .tag.matcha { background: #edf0c9; color: #62693c; } .tag.journal { background: #e8e0f8; color: #665783; }
+    .read-time { color: #8b8b7d; font-size: .72rem; }
+    .article-card h3 { font-family: Georgia, serif; font-size: 1.48rem; line-height: 1.13; font-weight: 500; margin: 20px 0 10px; letter-spacing: -.025em; }
+    .article-card p { font-size: .88rem; color: var(--muted); margin-bottom: 20px; }
+    .article-link { text-decoration: none; font-weight: 800; font-size: .85rem; margin-top: auto; display: flex; align-items: center; justify-content: space-between; }
+    .empty-state { display: none; padding: 25px; text-align: center; border: 1px dashed var(--line); border-radius: 18px; color: var(--muted); }
+    .journal-band { padding: 0 0 70px; }
+    .journal-inner { border-radius: 30px; background: var(--pink); padding: 34px; display: grid; grid-template-columns: 1fr auto; gap: 25px; align-items: center; overflow: hidden; position: relative; }
+    .journal-inner::after { content: "✿"; position: absolute; right: 24%; top: -60px; font-size: 13rem; color: rgba(255,255,255,.35); transform: rotate(17deg); pointer-events: none; }
+    .journal-inner h2 { max-width: 590px; position: relative; z-index: 1; }
+    .journal-inner p { max-width: 590px; color: #6d4f54; margin: 14px 0 0; position: relative; z-index: 1; }
+    .journal-inner .btn { position: relative; z-index: 1; white-space: nowrap; }
+    .official { background: #e7eddc; }
+    .resource-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-top: 25px; }
+    .resource-link { text-decoration: none; display: flex; gap: 12px; align-items: center; padding: 17px; border-radius: 16px; background: rgba(255,253,247,.82); border: 1px solid rgba(70,96,68,.12); font-weight: 750; font-size: .87rem; }
+    .resource-link span { font-size: 1.3rem; }
+    .resource-link b { margin-left: auto; color: var(--green-dark); }
+    footer { padding: 35px 0 28px; }
+    .footer-main { display: flex; justify-content: space-between; align-items: start; gap: 25px; padding-bottom: 25px; border-bottom: 1px solid var(--line); }
+    .footer-main p { max-width: 390px; color: var(--muted); font-size: .88rem; margin: 12px 0 0; }
+    .footer-links { display: flex; flex-wrap: wrap; gap: 15px; font-size: .83rem; }
+    .footer-links a { text-decoration: none; }
+    .footer-bottom { display: flex; justify-content: space-between; gap: 15px; color: var(--muted); font-size: .75rem; padding-top: 18px; }
+    .disclaimer { max-width: 780px; }
+    .toast { position: fixed; left: 50%; bottom: 20px; transform: translate(-50%, 20px); background: var(--ink); color: white; padding: 12px 18px; border-radius: 999px; opacity: 0; pointer-events: none; transition: .25s; z-index: 50; font-size: .85rem; }
+    .toast.show { opacity: 1; transform: translate(-50%, 0); }
+    @media (max-width: 950px) {
+      .category-grid { grid-template-columns: repeat(3, 1fr); }
+      .category-card { min-height: 175px; }
+      .hero-grid { gap: 15px; }
+      .article-grid { grid-template-columns: repeat(2, 1fr); }
+      .resource-grid { grid-template-columns: repeat(2, 1fr); }
+      .nav-links a { padding: 7px 8px; font-size: .78rem; }
+    }
+    @media (max-width: 700px) {
+      .nav-wrap { padding: 12px 18px; }
+      .menu-toggle { display: block; }
+      .nav-links { display: none; position: absolute; top: 100%; left: 0; right: 0; padding: 12px 18px 17px; background: var(--cream); border-bottom: 1px solid var(--line); box-shadow: var(--shadow); align-items: stretch; }
+      .nav-links.open { display: flex; flex-direction: column; }
+      .nav-links a { padding: 11px 13px; font-size: .92rem; }
+      .container { width: min(100% - 30px, 560px); }
+      .hero { padding: 43px 0 32px; }
+      .hero-grid { grid-template-columns: 1fr; }
+      h1 { font-size: clamp(3rem, 14vw, 4.8rem); }
+      .hero-art { min-height: 300px; margin-top: 8px; }
+      .art-paper { max-width: 340px; }
+      .art-card { padding: 16px; }
+      .art-card .cup { font-size: 3.7rem; }
+      section { padding: 52px 0; }
+      .section-head { display: block; }
+      .section-intro { margin-top: 13px; }
+      .category-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+      .category-card { min-height: 170px; padding: 16px; }
+      .category-card h3 { font-size: 1.16rem; }
+      .tools-grid { grid-template-columns: 1fr; }
+      .tool-card { padding: 20px; }
+      .field-grid { gap: 11px; }
+      .article-grid { grid-template-columns: 1fr; }
+      .article-card { min-height: 215px; }
+      .journal-inner { grid-template-columns: 1fr; padding: 26px; }
+      .journal-inner .btn { justify-self: start; }
+      .journal-inner::after { right: 0; top: 35px; font-size: 7rem; }
+      .resource-grid { grid-template-columns: 1fr 1fr; }
+      .resource-link { padding: 13px; font-size: .78rem; }
+      .footer-main, .footer-bottom { flex-direction: column; }
+    }
+    @media (max-width: 390px) { .field-grid { grid-template-columns: 1fr; } .category-grid { grid-template-columns: 1fr 1fr; } .resource-grid { grid-template-columns: 1fr; } }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; transition-duration: .01ms !important; } }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="nav-wrap">
+      <a class="brand" href="#top" aria-label="Corporate Sediments home">
+        <span class="brand-name">corporate sediments<span aria-hidden="true"> ✳</span></span>
+        <span class="brand-sub">a life in progress · singapore</span>
+      </a>
+      <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="navLinks">☰ Menu</button>
+      <nav class="nav-links" id="navLinks" aria-label="Main navigation">
+        <a href="#the-files">The files</a>
+        <a href="#calculators">Calculators</a>
+        <a href="#latest">Latest notes</a>
+        <a href="#journal">Journal</a>
+        <a href="#resources">Useful links ↗</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <span class="eyebrow">✿ notes from the in-between</span>
+          <h1>Figuring it out,<br><em>one little thing</em><br>at a time.</h1>
+          <p class="hero-copy">A cosy corner for Singapore home-buying questions, wedding plans, renovation dreams, matcha detours and the little life things worth writing down.</p>
+          <div class="hero-actions">
+            <a class="btn btn-green" href="#the-files">Find your next step <span>↗</span></a>
+            <a class="btn btn-yellow" href="#latest">Browse the little notes</a>
+          </div>
+        </div>
+        <div class="hero-art" aria-label="A whimsical matcha and journal illustration">
+          <div class="art-paper"></div>
+          <div class="art-card">
+            <div class="cup" aria-hidden="true">🍵</div>
+            <strong>slow mornings,<br>big plans.</strong>
+            <small>somewhere between spreadsheets & daydreams</small>
+          </div>
+          <div class="sticker one" aria-hidden="true">🌸</div>
+          <div class="sticker two" aria-hidden="true">✦</div>
+          <div class="sticker three" aria-hidden="true">♡</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="ticker" aria-hidden="true"><div class="ticker-track">BTO applications ✳ HFE letters ✳ home loan maths ✳ wedding checklists ✳ renovation dreams ✳ matcha breaks ✳ little journal entries ✳ BTO applications ✳ HFE letters ✳ home loan maths ✳ wedding checklists ✳ renovation dreams ✳ matcha breaks ✳ little journal entries ✳</div></div>
+
+    <section id="the-files">
+      <div class="container">
+        <div class="section-head">
+          <div><div class="kicker">a little filing system</div><h2>Pick your current chapter.</h2></div>
+          <p class="section-intro">For the big grown-up questions and the tiny joys. Start wherever life has you right now.</p>
+        </div>
+        <div class="category-grid">
+          <a class="category-card cat-bto" href="#latest" data-jump-filter="BTO"><div class="emoji">🏡</div><div><h3>The BTO Files</h3><p>HFE, eligibility, grants & home-loan maths.</p></div><span class="arrow">↗</span></a>
+          <a class="category-card cat-wedding" href="#latest" data-jump-filter="Wedding"><div class="emoji">💌</div><div><h3>The Wedding Files</h3><p>Budgets, vendors & thoughtful details.</p></div><span class="arrow">↗</span></a>
+          <a class="category-card cat-home" href="#latest" data-jump-filter="Home"><div class="emoji">🪴</div><div><h3>The Home Edit</h3><p>Renovation plans, rooms & cosy corners.</p></div><span class="arrow">↗</span></a>
+          <a class="category-card cat-matcha" href="#latest" data-jump-filter="Matcha"><div class="emoji">🍵</div><div><h3>Matcha & Little Things</h3><p>Café finds and small everyday treats.</p></div><span class="arrow">↗</span></a>
+          <a class="category-card cat-journal" href="#journal"><div class="emoji">📓</div><div><h3>The Journal</h3><p>Life lately, lessons & things to keep.</p></div><span class="arrow">↗</span></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="tools-section" id="calculators">
+      <div class="container">
+        <div class="section-head">
+          <div><div class="kicker">numbers, but make them friendly</div><h2>Little calculators.</h2></div>
+          <p class="section-intro">A starting point for planning. Change the assumptions to fit your situation, then verify details with the relevant official source or lender.</p>
+        </div>
+        <div class="tools-grid">
+          <div class="tool-card">
+            <div class="tool-title"><div><h3>Home loan estimator</h3><p>Estimate a monthly repayment from your loan amount.</p></div><div class="tool-icon">🏡</div></div>
+            <div class="field-grid">
+              <div class="field"><label for="loanAmount">Loan amount (S$)</label><input id="loanAmount" type="number" min="0" step="1000" value="360000" inputmode="decimal"></div>
+              <div class="field"><label for="loanRate">Annual interest rate (%)</label><input id="loanRate" type="number" min="0" max="30" step="0.1" value="2.6" inputmode="decimal"></div>
+              <div class="field"><label for="loanYears">Loan tenure (years)</label><select id="loanYears"><option>15</option><option>20</option><option selected>25</option><option>30</option></select></div>
+              <div class="field"><label for="loanType">Loan type (for your notes)</label><select id="loanType"><option>HDB loan</option><option>Bank loan</option><option>Just comparing</option></select></div>
+            </div>
+            <div class="tool-result"><div><span>Estimated monthly repayment</span><strong id="monthlyResult">S$1,633</strong></div><span aria-hidden="true" style="font-size:1.8rem">↗</span></div>
+            <p class="tool-note" id="loanNote">Illustrative estimate only. Actual eligibility, rates, tenure and loan limits depend on your circumstances and current rules.</p>
+          </div>
+          <div class="tool-card">
+            <div class="tool-title"><div><h3>Wedding budget buddy</h3><p>Give the big day a budget before it gets too big.</p></div><div class="tool-icon" style="background:var(--pink)">💐</div></div>
+            <div class="budget-list">
+              <div class="budget-row"><label for="venueCost">Venue & food</label><input class="wedding-cost" id="venueCost" type="number" min="0" step="100" value="18000"></div>
+              <div class="budget-row"><label for="photoCost">Photography / videography</label><input class="wedding-cost" id="photoCost" type="number" min="0" step="100" value="3000"></div>
+              <div class="budget-row"><label for="attireCost">Attire & beauty</label><input class="wedding-cost" id="attireCost" type="number" min="0" step="100" value="2500"></div>
+              <div class="budget-row"><label for="decoCost">Flowers & styling</label><input class="wedding-cost" id="decoCost" type="number" min="0" step="100" value="1500"></div>
+              <div class="budget-row"><label for="miscCost">Other / buffer</label><input class="wedding-cost" id="miscCost" type="number" min="0" step="100" value="2000"></div>
+            </div>
+            <div class="budget-total"><span>Estimated total</span><strong id="weddingTotal">S$27,000</strong></div>
+            <p class="tool-note">Starter categories only. Your total updates as you edit the amounts; add other costs to the buffer as needed.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="content-section" id="latest">
+      <div class="container">
+        <div class="section-head">
+          <div><div class="kicker">fresh from the notebook</div><h2>Little notes for big plans.</h2></div>
+          <p class="section-intro">A starter collection of topics for your new site. These are guide outlines to build on, not claims of personalised financial or legal advice.</p>
+        </div>
+        <div class="search-row">
+          <label class="search-box"><span aria-hidden="true">⌕</span><input id="articleSearch" type="search" placeholder="Search BTO, HFE, matcha, wedding…" aria-label="Search articles"></label>
+          <div class="filter-pills" role="group" aria-label="Filter articles">
+            <button class="filter-pill active" data-filter="All">All notes</button>
+            <button class="filter-pill" data-filter="BTO">BTO</button>
+            <button class="filter-pill" data-filter="Wedding">Wedding</button>
+            <button class="filter-pill" data-filter="Home">Home & reno</button>
+            <button class="filter-pill" data-filter="Matcha">Matcha</button>
+            <button class="filter-pill" data-filter="Journal">Journal</button>
+          </div>
+        </div>
+        <div class="article-grid" id="articleGrid">
+          <article class="article-card" data-category="BTO" data-search="bto first timer checklist hdb application eligibility flat booking"><div class="article-top"><span class="tag">BTO · START HERE</span><span class="read-time">6 min read</span></div><h3>Your first-timer BTO checklist</h3><p>A calmer way to organise the steps, documents and questions to ask before applying for a flat.</p><a class="article-link" href="https://www.hdb.gov.sg/" target="_blank" rel="noopener">Start with HDB <span>↗</span></a></article>
+          <article class="article-card" data-category="BTO" data-search="hfe letter housing eligibility hfe income documents timeline hdb"><div class="article-top"><span class="tag">BTO · HFE</span><span class="read-time">5 min read</span></div><h3>HFE: what to get ready</h3><p>A preparation list for understanding the HDB Flat Eligibility letter, documents and the questions to clarify.</p><a class="article-link" href="https://www.hdb.gov.sg/" target="_blank" rel="noopener">Check official guidance <span>↗</span></a></article>
+          <article class="article-card" data-category="BTO" data-search="home loan monthly repayment mortgage interest rate cash cpf budget affordability"><div class="article-top"><span class="tag">BTO · MONEY</span><span class="read-time">4 min read</span></div><h3>Before you fall for a floor plan</h3><p>Work backwards from a comfortable monthly budget, emergency savings and upfront costs — not just the headline price.</p><a class="article-link" href="#calculators">Try the loan estimator <span>↗</span></a></article>
+          <article class="article-card" data-category="Wedding" data-search="wedding budget planning checklist vendors solemnisation guest list singapore"><div class="article-top"><span class="tag wedding">WEDDING</span><span class="read-time">7 min read</span></div><h3>A wedding budget that feels like yours</h3><p>Start with the things that matter most to you both, then divide the rest into realistic categories.</p><a class="article-link" href="#calculators">Open budget buddy <span>↗</span></a></article>
+          <article class="article-card" data-category="Wedding" data-search="wedding planning vendor questions photography venue contract checklist"><div class="article-top"><span class="tag wedding">WEDDING</span><span class="read-time">5 min read</span></div><h3>Questions to ask every vendor</h3><p>Availability, deliverables, payment schedule, cancellation terms and the tiny details worth confirming in writing.</p><a class="article-link" href="#journal">Save to your planning notes <span>↗</span></a></article>
+          <article class="article-card" data-category="Home" data-search="renovation reno budget contractor interior design quotation hdb permit defects"><div class="article-top"><span class="tag home">HOME EDIT</span><span class="read-time">6 min read</span></div><h3>Before you say yes to a reno quote</h3><p>Compare scope, materials, exclusions, payment milestones and required approvals — not only the final number.</p><a class="article-link" href="https://www.hdb.gov.sg/" target="_blank" rel="noopener">Check HDB renovation rules <span>↗</span></a></article>
+          <article class="article-card" data-category="Home" data-search="new home renovation checklist measurements storage lighting electrical furniture move in"><div class="article-top"><span class="tag home">HOME EDIT</span><span class="read-time">4 min read</span></div><h3>The first-home measuring list</h3><p>Doors, walkways, appliance spaces, plug points and storage: measure before you fall in love with furniture.</p><a class="article-link" href="#journal">Add it to your notes <span>↗</span></a></article>
+          <article class="article-card" data-category="Matcha" data-search="matcha cafe singapore cafe review latte drinks little treats"><div class="article-top"><span class="tag matcha">MATCHA</span><span class="read-time">3 min read</span></div><h3>A little matcha detour</h3><p>A place for café finds, honest drink notes, price points and the occasional matcha worth crossing town for.</p><a class="article-link" href="#journal">Write a café note <span>↗</span></a></article>
+          <article class="article-card" data-category="Journal" data-search="journal monthly recap life lately reflection memories personal notes little victories"><div class="article-top"><span class="tag journal">JOURNAL</span><span class="read-time">2 min read</span></div><h3>Things I want to remember</h3><p>A soft little space for recent joys, lessons, photographs and ordinary days that turned out to be special.</p><a class="article-link" href="#journal">Visit the journal corner <span>↗</span></a></article>
+        </div>
+        <div class="empty-state" id="emptyState">No notes found for that search. Try another word or choose “All notes”. 🌼</div>
+      </div>
+    </section>
+
+    <div class="journal-band" id="journal">
+      <div class="container">
+        <div class="journal-inner">
+          <div><div class="kicker" style="color:#80545c">a page just for you</div><h2>Not everything needs to be a milestone.</h2><p>Keep the tiny things, too: a good cup of matcha, a room you finally made cosy, a decision you felt proud of, a day that was simply enough.</p></div>
+          <a class="btn btn-green" href="mailto:hello@corporatesediments.com?subject=Journal%20note%20idea">Send a little note ↗</a>
+        </div>
+      </div>
+    </div>
+
+    <section class="official" id="resources">
+      <div class="container">
+        <div class="kicker">good to know, straight from the source</div>
+        <h2>Useful Singapore links.</h2>
+        <p class="section-intro" style="margin-top:14px">For housing, CPF and stamp-duty questions, use official sources to confirm the latest rules before making decisions.</p>
+        <div class="resource-grid">
+          <a class="resource-link" href="https://www.hdb.gov.sg/" target="_blank" rel="noopener"><span>🏠</span><span>HDB housing info</span><b>↗</b></a>
+          <a class="resource-link" href="https://www.cpf.gov.sg/" target="_blank" rel="noopener"><span>💰</span><span>CPF contributions & use</span><b>↗</b></a>
+          <a class="resource-link" href="https://www.iras.gov.sg/" target="_blank" rel="noopener"><span>🧾</span><span>IRAS stamp duties</span><b>↗</b></a>
+          <a class="resource-link" href="https://www.moneysense.gov.sg/" target="_blank" rel="noopener"><span>📚</span><span>MoneySense guides</span><b>↗</b></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-main">
+        <div><a class="brand" href="#top"><span class="brand-name">corporate sediments ✳</span><span class="brand-sub">a life in progress · singapore</span></a><p>Making room for the practical plans, the soft little joys, and everything in between.</p></div>
+        <div class="footer-links"><a href="#the-files">The files</a><a href="#calculators">Calculators</a><a href="#latest">Latest notes</a><a href="#resources">Official links</a></div>
+      </div>
+      <div class="footer-bottom"><span>© <span id="year"></span> Corporate Sediments. Made with a little matcha.</span><span class="disclaimer">Calculators and content are for general information only and are not financial, legal, tax or professional advice. Rules and rates can change; verify details with the relevant authority or lender.</span></div>
+    </div>
+  </footer>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    (() => {
+      const $ = (selector, root = document) => root.querySelector(selector);
+      const $$ = (selector, root = document) => Array.from(root.querySelectorAll(selector));
+      const money = value => new Intl.NumberFormat('en-SG', { style: 'currency', currency: 'SGD', maximumFractionDigits: 0 }).format(Number.isFinite(value) ? value : 0);
+
+      // Mobile navigation
+      const menuToggle = $('#menuToggle');
+      const navLinks = $('#navLinks');
+      menuToggle.addEventListener('click', () => {
+        const isOpen = navLinks.classList.toggle('open');
+        menuToggle.setAttribute('aria-expanded', String(isOpen));
+      });
+      $$('#navLinks a').forEach(link => link.addEventListener('click', () => {
+        navLinks.classList.remove('open');
+        menuToggle.setAttribute('aria-expanded', 'false');
+      }));
+
+      // Mortgage-style monthly repayment estimate. At 0% interest, divide principal evenly.
+      function updateLoan() {
+        const principal = Math.max(0, Number($('#loanAmount').value) || 0);
+        const annualRate = Math.max(0, Number($('#loanRate').value) || 0) / 100;
+        const months = Math.max(1, (Number($('#loanYears').value) || 25) * 12);
+        const monthlyRate = annualRate / 12;
+        const payment = principal === 0 ? 0 : monthlyRate === 0 ? principal / months : principal * monthlyRate / (1 - Math.pow(1 + monthlyRate, -months));
+        $('#monthlyResult').textContent = money(payment);
+        const loanType = $('#loanType').value;
+        $('#loanNote').textContent = `Illustrative ${loanType.toLowerCase()} estimate only, using the rate and tenure entered. Actual eligibility, rates, tenure, fees and loan limits depend on your circumstances and current rules.`;
+      }
+      ['loanAmount', 'loanRate', 'loanYears', 'loanType'].forEach(id => $('#' + id).addEventListener('input', updateLoan));
+      updateLoan();
+
+      // Wedding budget sum
+      function updateWeddingTotal() {
+        const total = $$('.wedding-cost').reduce((sum, input) => sum + Math.max(0, Number(input.value) || 0), 0);
+        $('#weddingTotal').textContent = money(total);
+      }
+      $$('.wedding-cost').forEach(input => input.addEventListener('input', updateWeddingTotal));
+      updateWeddingTotal();
+
+      // Article search and category filters
+      let activeFilter = 'All';
+      const searchInput = $('#articleSearch');
+      const cards = $$('.article-card');
+      const emptyState = $('#emptyState');
+      function filterArticles() {
+        const query = searchInput.value.trim().toLowerCase();
+        let visible = 0;
+        cards.forEach(card => {
+          const matchesFilter = activeFilter === 'All' || card.dataset.category === activeFilter;
+          const haystack = (card.dataset.search + ' ' + card.innerText).toLowerCase();
+          const matchesQuery = !query || haystack.includes(query);
+          const show = matchesFilter && matchesQuery;
+          card.hidden = !show;
+          if (show) visible++;
+        });
+        emptyState.style.display = visible ? 'none' : 'block';
+        $$('.filter-pill').forEach(button => {
+          const isActive = button.dataset.filter === activeFilter;
+          button.classList.toggle('active', isActive);
+          button.setAttribute('aria-pressed', String(isActive));
+        });
+      }
+      $$('.filter-pill').forEach(button => button.addEventListener('click', () => {
+        activeFilter = button.dataset.filter;
+        filterArticles();
+      }));
+      searchInput.addEventListener('input', filterArticles);
+      $$('[data-jump-filter]').forEach(link => link.addEventListener('click', () => {
+        activeFilter = link.dataset.jumpFilter;
+        filterArticles();
+      }));
+
+      $('#year').textContent = new Date().getFullYear();
+    })();
+  </script>
+</body>
+</html>
 
